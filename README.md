@@ -24,27 +24,27 @@ Development of the website and management platform for the Colina do Sol shoppin
 
   Add the .env file to the project's root directory:
 
-    SECRET_KEY=<sua_chave_secreta>
-    DEBUG=<True_ou_False>
+    SECRET_KEY=<your_secret_key>
+    DEBUG=<True_or_False>
     
     # Database Configuration
-    DATABASE_NAME=<nome_da_base_de_dados>
-    DATABASE_USER=<Utilizador_da_bd>
-    DATABASE_PASSWORD=<password_da_bd>
-    DATABASE_HOST=<host_da_bd>
-    DATABASE_PORT=<porta_da_bd>
+    DATABASE_NAME=<database_name>
+    DATABASE_USER=<database_user>
+    DATABASE_PASSWORD=<database_password>
+    DATABASE_HOST=<database_host>
+    DATABASE_PORT=<database_port>
     
     # SMTP Configuration
-    EMAIL_BACKEND=<backend_do_email>
-    EMAIL_HOST=<host_do_email>
-    EMAIL_PORT=<porta_do_email>
-    EMAIL_USE_SSL=<True_ou_False>
-    EMAIL_HOST_USER=<usuário_do_email>
-    DEFAULT_FROM_EMAIL=<email_de_envio_padrao>
-    EMAIL_HOST_PASSWORD=<senha_do_email>
+    EMAIL_BACKEND=<email_backend>
+    EMAIL_HOST=<email_host>
+    EMAIL_PORT=<email_port>
+    EMAIL_USE_SSL=<True_or_False>
+    EMAIL_HOST_USER=<email_user>
+    DEFAULT_FROM_EMAIL=<default_sender_email>
+    EMAIL_HOST_PASSWORD=<email_password>
     
     # Instagram Access Token Configuration
-    INSTA_ACCESS_TOKEN=<seu_token_de_acesso>
+    INSTA_ACCESS_TOKEN=<your_instagram_access_token>
 
   Migrate to the database:
 
@@ -53,4 +53,13 @@ Development of the website and management platform for the Colina do Sol shoppin
   Run the App:
 
     python manage.py runserver
+
+# First Steps
+  Step1 : Create a superuser
+  
+    python manage.py createsuperuser
+
+  Step2: Create first user
+  
+   Login in with the superuser clicking in "ccColinaDoSol" on the footer of the page and create your first administrator.
   
