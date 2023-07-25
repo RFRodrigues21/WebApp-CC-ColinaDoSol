@@ -1,0 +1,51 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+h1 {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: bold;
+}
+
+h3 {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.row {
+    margin: 0 !important;
+}
+
+.bg-admin-yellow {
+    background-color: #ffb81c !important;
+}
+
+.btn_moreinfo {
+    background: #00843d !important;
+    color: white !important;
+    margin: auto !important;
+    width: auto !important;
+}
+
+.card_footer {
+    padding: 0.5em !important;
+}
+
+.topmenu {
+    padding: 0 !important;
+}
+
+.navbar-collapse {
+    background-color: #F8F9FA !important;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .nav-link {
+        font-size: 30px !important;
+    }
+}

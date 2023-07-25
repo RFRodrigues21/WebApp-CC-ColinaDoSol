@@ -1,0 +1,29 @@
+.topmenu {
+    min-height: 140px;
+    height: 160px;
+}
+
+.logoSize {
+    height: 160px !important;
+    width: auto;
+}
+
+.navbar-toggler {
+    margin: 10px;
+}
+
+@media (max-width: 480px) {
+    .logoSize {
+        height: 100px !important;
+        width: auto;
+    }
+
+    .topmenu {
+        height: 100px;
+    }
+
+    .nav-link {
+        margin: 10px;
+    }
+
+}

@@ -1,0 +1,122 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+    {% comment %}
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+{% endcomment %}
+
+    <div class="col">
+        <div class="row  bg-white ">
+            <div>
+                {% if request.user.role == "ADMIN" or request.user.is_superuser %}
+                <a href="{% url 'ColinaDoSol:dboard_lojistas' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+                {% else %}
+                    <a href="{% url 'ColinaDoSol:dboard_perfil' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+                {% endif %}
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-people-group"></i> Editar Utilizador
+                </h3>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 18px">
+            <form action="" method="POST" class="newUserForm" class="newUserFormId" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Primeiro Nome:</label>
+                            <input type="text" Required name="first_name" id="first_name" class="form-control"
+                                   value="{{ user.first_name }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Último Nome:</label>
+                            <input type="text" Required name="last_name" id="last_name" class="form-control"
+                                   value="{{ user.last_name }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Email:</label>
+                            <input type="email" Required name="email" id="email" class="form-control"
+                                   value="{{ user.email }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Username:</label>
+                            <input type="text" Required id="username" name="username" class="form-control"
+                                   value="{{ user.username }}">
+                        </div>
+
+                        {% if request.user.is_authenticated and request.user.role == "ADMIN" %}
+                            <div class="mb-3">
+                                <label for="role" class="form-label"><i
+                                        class="fa-solid fa-briefcase form-input-icon"></i>Role:</label>
+                                <select name="role" id="role" class="form-select">
+                                    <option value="LOJISTA">Lojista</option>
+                                    <option value="ADMIN">Administrador</option>
+                                </select>
+                            </div>
+                        {% endif %}
+
+
+
+                        <div class="d-flex justify-content-around">
+                            <button type="submit" class="btn btn-success" name=""><i
+                                    class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                            </button>
+                            {% if request.user.id == user.id %}
+                                <a href="{% url 'ColinaDoSol:change_password' %}"
+                                   class="btn btn-outline-success"><i
+                                        class="fa-solid fa-pen-to-square form-input-icon"></i>Alterar Password</a>
+                            {% endif %}
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"><i class="fa-solid fa-trash form-input-icon"></i>Eliminar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Lojista</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Quer proceder com a eliminação do lojista "{{ user.username }}"?
+                        <p>(Não será possivel desfazer esta operação)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger"
+                                onclick="location.href='{% url 'ColinaDoSol:dboard_delete_user' user.id %}'">Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %}
+    <script src="{% static 'ColinaDoSol/js/sendCredentials.js' %}"></script>
+{% endcomment %}
+
+
+{% endblock content %}

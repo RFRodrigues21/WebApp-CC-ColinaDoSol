@@ -1,0 +1,154 @@
+{% extends "ColinaDoSol/base.html" %}
+{% load static %}
+
+{% block icon %}
+    <a class="" href="{% url "ColinaDoSol:index" %}">
+        {% if content.logo %}
+            <img src="{{ content.logo.url }}" alt="logoHorizontal" width="" class="logoSize">
+        {% else %}
+            <img src="{% static 'ColinaDoSol/img/LogoCoresH.png' %}" alt="logoHorizontal" class="logoSize">
+        {% endif %}
+    </a>
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-center align-items-center">
+        <div id="mapScene" style="height: 90vh; width: 97vw;"></div>
+    </div>
+
+    <section class="storesSection bg-light" id="lojas-section">
+        <div class="text-center pt-5">
+            <h1>As nossas lojas!</h1>
+        </div>
+
+        <div class="row ">
+            <!-- LOJAS -->
+            {% for loja in lojasList %}
+                <div class="col my-5">
+                    <div class="card mx-auto h-100" style="width: 18rem;">
+                        <div class="card-img-container">
+                            <img src="{{ loja.image.url }}" class="card-img-top" alt="{{ loja.brand }}"
+                                 style="border-radius: 0">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ loja.brand }}</h5>
+                            <p class="card-text text-justify">{{ loja.business }}</p>
+                        </div>
+                        <div class="row card_footer">
+                            <div class="row">
+                                {% if loja.facebookLink != null and loja.facebookLink != "None" and loja.facebookLink != "" %}
+                                    <div class="col text-center">
+                                        <a class="btn btn-floating m-1" href="{{ loja.facebookLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-facebook"></i>
+                                        </a>
+                                    </div>
+
+                                {% endif %}
+                                {% if loja.instagramLink != null and loja.instagramLink != "None" and loja.instagramLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.instagramLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-instagram"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if loja.linkedinLink != null and loja.linkedinLink != "None" and loja.linkedinLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.linkedinLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-linkedin"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if loja.twitterLink != null and loja.twitterLink != "None" and loja.twitterLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.twitterLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-twitter"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+
+                                {% if loja.websiteLink != null and loja.websiteLink != "None" and loja.websiteLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="https://{{ loja.websiteLink }}"
+                                           role="button"
+                                           target="_blank">
+                                            <i class="fa fa-globe"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn_moreinfo pb-2" data-bs-toggle="modal"
+                                        data-bs-target="#id{{ loja.store_num }}">
+                                    Mais informações
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% include 'ColinaDoSol/storeModal.html' %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <script type="module" src="{% static 'ColinaDoSol/js/three.js/main.js' %}"></script>
+
+{% endblock content %}
+
+{% block descricao %}
+
+    {% if content.description %}
+        <p>{{ content.description }}</p>
+    {% else %}
+        <p>Galeria de lojas localizada em Alfornelos, no concelho da
+            Amadora, construído em 1992. Tem 61 lojas e parque de estacionamento.</p>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block redesSociais %}
+
+    {% if content.facebookLink %}
+        <a class="btn btn-outline-light btn-floating m-1" href="{{ content.facebookLink }}"
+           role="button" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+        </a>
+    {% else %}
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/CCColinadoSol"
+           role="button" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+        </a>
+    {% endif %}
+
+    {% if content.instagramLink %}
+        <a class="btn btn-outline-light btn-floating m-1"
+           href="{{ content.instagramLink }}" role="button"
+           target="_blank">
+            <i class="fab fa-instagram"></i>
+            Instagram
+        </a>
+    {% else %}
+        <a class="btn btn-outline-light btn-floating m-1"
+           href="https://instagram.com/centrocomercial_colinadosol?igshid=YmMyMTA2M2Y=" role="button"
+           target="_blank">
+            <i class="fab fa-instagram"></i>
+            Instagram
+        </a>
+    {% endif %}
+{% endblock %}

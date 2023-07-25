@@ -1,0 +1,72 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="col">
+        <div class="row  bg-white ">
+            <div>
+                <a href="{% url 'ColinaDoSol:dboard_anuncios' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-bullhorn"></i> Editar Anúncio
+                </h3>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 18px">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="title" class="form-label"><i class="fa-solid fa-signature form-input-icon"></i>Titulo:</label>
+                            <input type="text" Required name="title" class="form-control" value="{{ anuncio.title }}" }>
+                        </div>
+                        <div class="mb-3">
+                            <label for="text" class="form-label"><i
+                                    class="fa-regular fa-file-lines form-input-icon"></i>Anúncio:</label>
+                            <textarea class="form-control" required name="text">{{ anuncio.text }}</textarea>
+                        </div>
+
+                        <div class="row text-center">
+                            <div class="col d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success" name="">
+                                    <i class="fa-solid fa-floppy-disk form-input-icon"></i> Guardar
+                                </button>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" style="color: white !important">
+                                    <i class="fa-solid fa-trash form-input-icon"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Anúncio</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        A operação não pode ser anulada
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href='{% url 'ColinaDoSol:dboard_delete_anuncio' anuncio.id %}'">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

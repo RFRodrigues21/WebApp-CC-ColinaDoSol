@@ -1,0 +1,10 @@
+.carousel-item > img {
+    width: 1500px;
+    max-width: 100% !important;
+    max-height: 1000px;
+    margin: auto;
+}
+
+.carousel {
+    padding-top: 160px;
+}

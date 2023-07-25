@@ -1,0 +1,37 @@
+.storesSection {
+    /*height: 80vh;*/
+}
+
+.card-img-container {
+    height: 300px;
+    display: flex;
+    padding: 16px;
+}
+
+.card-img-container > img {
+    margin: auto;
+}
+
+.store-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#labelsContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.label {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+

@@ -1,0 +1,73 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CC Colina do Sol</title>
+    {% block styles %}
+        {% bootstrap_css %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/stores.css' %}">
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/contacts.css' %}">
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'ColinaDoSol/css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'ColinaDoSol/img/favicon.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<section class="vh-100 bg-admin-yellow">
+    <a href="{% url 'ColinaDoSol:index' %}"><i class="fa-solid fa-circle-left backArrow position-absolute"></i></a>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="fixed-top w-50 mt-2 mx-auto">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card text-dark" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="">
+                            <img src="{% static 'ColinaDoSol/img/logos/logoVpreto.png' %}" alt="logoVerticalPreto"
+                                 class="logoDashboard">
+                            {% block content %}
+
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

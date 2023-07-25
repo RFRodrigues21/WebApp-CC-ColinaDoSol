@@ -1,0 +1,25 @@
+{% for admin in admins %}
+    <div class="card mb-3 m-auto">
+    <div class="d-flex justify-content-between card-header">
+        <h5 >{{ admin }}</h5>
+
+            <a href="{% url 'ColinaDoSol:dboard_editar_lojista' admin.id %}"
+               class="btn btn-outline-success"><i
+                    class="fa-solid fa-pen-to-square form-input-icon"></i>Editar</a>
+    </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Username:</strong> {{ admin.username }}</p>
+                    <p><strong>Email:</strong> {{ admin.email }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Loja:</strong> {{ admin.store_set.first }} ( Nº{{ admin.store_set.first.store_num }}
+                        )</p>
+                    <p><strong>Data de Criação:</strong> {{ admin.date_joined }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

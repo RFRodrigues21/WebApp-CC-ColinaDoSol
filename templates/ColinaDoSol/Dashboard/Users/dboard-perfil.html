@@ -1,0 +1,104 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="row pt-5 storesPage">
+        <div class="col">
+            <div class="row">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-user"></i> Perfil
+                    </h3>
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-header">
+                    Detalhes do utilizador
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Primeiro Nome:</strong> {{ user.first_name }}</p>
+                            <p><strong>Apelido:</strong> {{ user.last_name }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Privilégios:</strong> {{ user.role }}</p>
+                            <p><strong>Data de Criação:</strong> {{ user.date_joined }}</p>
+                            <br>
+                            <div>
+                                <a href="{% url 'ColinaDoSol:dboard_editar_lojista' user.id %}"
+                                   class="btn btn-outline-success"><i
+                                        class="fa-solid fa-pen-to-square form-input-icon"></i>Editar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-clock-rotate-left"></i> Histórico
+                    </h3>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header">
+                    Ações do utilizador
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="actions-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for action in user.useraction_set.all %}
+                                    <tr>
+                                        <td>{{ action.user.username }}</td>
+                                        <td>{{ action.action|safe }}</td>
+                                        <td>{{ action.date }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#actions-table').DataTable({
+                "language": {
+                    paginate: {
+                        next: 'Próxima',
+                        previous: 'Anterior',
+                    },
+                    "search": "Pesquisar:",
+                    "lengthMenu": "Apresentar _MENU_ registos por página",
+                    "zeroRecords": "Nenhum registo encontrado",
+                    "info": "Apresentando _PAGE_ de _PAGES_ páginas",
+                    "infoEmpty": "Não existem registos",
+                    "infoFiltered": "(filtered from _MAX_ total records)"
+                },
+                "order": [[2, "desc"]]
+            });
+        })
+        ;
+    </script>
+{% endblock content %}

@@ -1,0 +1,179 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+    {% load bootstrap5 %}
+
+    <div class="fixed-top w-50 mt-2 mx-auto">
+        {% if success_message %}
+            {% bootstrap_alert success_message alert_type="success" %}
+        {% endif %}
+    </div>
+
+    <div class="row storesPage">
+        <div class="col">
+            <div class="row">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-tag"></i> Ramos de Atividade
+                    </h3>
+                </div>
+                <div class="col top_btns_lojas">
+                    <button type="button" class="btn btn-success pull-right" data-bs-toggle="modal"
+                            data-bs-target="#newBusinessModal">
+                        <i class="fa-solid fa-plus "></i>Adicionar
+                    </button>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="newBusinessModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Novo Ramo de Atividade</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form action="" method="post" class="form">
+                            <div class="modal-body">
+                                {% csrf_token %}
+
+                                {% bootstrap_form form %}
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success" name=""><i
+                                        class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table id="actions-table" class="table">
+                        <thead>
+                        <tr>
+                            <th>Ramo de Atividade</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for business in businessList %}
+                            <tr>
+                                <td>{{ business.business }}</td>
+                                <td>
+
+                                    <a data-bs-toggle="modal" data-bs-target="#deleteBusinessModal{{ business.id }}"
+                                       class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"
+                                                                        style="color: white"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editBusinessModal{{ business.id }}"
+                                       class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"
+                                                                         style="color: white"></i></a>
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteBusinessModal{{ business.id }}" tabindex="-1"
+                                 role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Ramo de
+                                                Atividade</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Esta operação não pode ser anulada!
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                            </button>
+                                            <button type="button" class="btn btn-danger"
+                                                    onclick="location.href='{% url 'ColinaDoSol:delete_businesses' business.id %}'">
+                                                Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edit Business Modal -->
+                            <div class="modal fade" id="editBusinessModal{{ business.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Editar Ramo de
+                                                Atividade</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="" method="post" class="form">
+                                            <div class="modal-body">
+                                                <h5>Ramo Actual: {{ business }}</h5>
+
+                                                {% csrf_token %}
+                                                {% bootstrap_form form %}
+                                                <input type="hidden" name="business_id" id="businessIdInput"
+                                                       value="{{ business.id }}">
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success" name=""><i
+                                                        class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#actions-table').DataTable({
+                "language": {
+                    paginate: {
+                        next: 'Próxima',
+                        previous: 'Anterior',
+                    },
+                    "search": "Pesquisar:",
+                    "lengthMenu": "Apresentar _MENU_ registos por página",
+                    "zeroRecords": "Nenhum registo encontrado",
+                    "info": "Apresentando _PAGE_ de _PAGES_ páginas",
+                    "infoEmpty": "Não existem registos",
+                    "infoFiltered": "(filtered from _MAX_ total records)"
+                },
+            });
+        })
+        ;
+    </script>
+
+{% endblock content %}

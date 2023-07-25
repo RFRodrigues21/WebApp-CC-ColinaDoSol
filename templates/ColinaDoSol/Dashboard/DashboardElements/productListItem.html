@@ -1,0 +1,23 @@
+{% for product in productList %}
+    <div class="card mb-3 m-auto" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex">
+                <img src="{{ product.image.url }}" class="img-fluid m-auto" alt="..."
+                     style="padding: 16px">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="mb-5">
+                        <h5 class="card-title">{{ product.brand }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'ColinaDoSol:dboard_editar_produto' product.id %}"
+                           class="btn btn-outline-success"><i
+                                class="fa-solid fa-pen-to-square form-input-icon"></i>Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

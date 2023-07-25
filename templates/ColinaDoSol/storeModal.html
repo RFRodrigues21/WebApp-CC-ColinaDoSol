@@ -1,0 +1,148 @@
+<!-- Modal -->
+<div class="modal fade" id="id{{ loja.store_num }}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title" id="exampleModalLongTitle">{{ loja.brand }}</h4>
+                    <p>{{ loja.business }}</p>
+                </div>
+
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                    <div class="d-flex ">
+                        <img src="{{ loja.image.url }}" class="mx-auto mb-2" alt="{{ loja.brand }}"
+                         style="border-radius: 0; max-width: 200px">
+                    </div>
+
+
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Descrição</h5>
+                        <p class="card-text text-justify">{{ loja.description }}</p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Horário</h5>
+                        {% for operating_hour in loja.operatinghours_set.all %}
+                            <div class="row">
+                                <div class="col"><p>{{ operating_hour.get_weekday_display }}</p></div>
+                                <div class="col">
+                                    {% if operating_hour.opening_time and operating_hour.closing_time %}
+                                        {% if operating_hour.lunch_start_time and operating_hour.lunch_end_time %}
+                                            <p>{{ operating_hour.opening_time|time:'H:i' }} -
+                                                {{ operating_hour.lunch_start_time|time:'H:i' }} &nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{ operating_hour.lunch_end_time|time:'H:i' }} -
+                                                {{ operating_hour.closing_time|time:'H:i' }}</p>
+                                        {% else %}
+                                            <p>{{ operating_hour.opening_time|time:'H:i' }}
+                                                - {{ operating_hour.closing_time|time:'H:i' }}</p>
+                                        {% endif %}
+                                    {% else %}
+                                        <p>Encerrado</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <li>Não existe horário.</li>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if loja.product_set.all.count > 0 %}
+                    <h5>Produtos/Serviços:</h5>
+                    <div class="container-fluid">
+                        <div class="row flex-nowrap overflow-auto">
+                            {% for product in loja.product_set.all %}
+                                <div class="col-md-4">
+                                    <div class="card d-flex flex-fill h-100">
+                                        <img src="{{ product.image.url }}" class="card-img-top p-2"
+                                             alt="{{ product.name }}">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">{{ product.name }}</h5>
+                                            <p class="card-text">{{ product.description }}</p>
+                                            <div class="mt-auto"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Contactos</h5>
+
+                <div class="col">
+                    <p>Telefone: {{ loja.phoneNum }}</p>
+                </div>
+                <div class="col">
+                    <p>E-mail: {{ loja.email }}</p>
+                </div>
+            </div>
+            <div class="row">
+                {% if loja.facebookLink != null and loja.facebookLink != "None" and loja.facebookLink != "" %}
+                    <div class="col text-center">
+                        <a class="btn btn-floating m-1" href="{{ loja.facebookLink }}" role="button"
+                           target="_blank">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </div>
+
+                {% endif %}
+                {% if loja.instagramLink != null and loja.instagramLink != "None" and loja.instagramLink != "" %}
+                    <div class="col text-center">
+
+                        <a class="btn btn-floating m-1" href="{{ loja.instagramLink }}"
+                           role="button"
+                           target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+
+                        </a>
+                    </div>
+                {% endif %}
+                {% if loja.linkedinLink != null and loja.linkedinLink != "None" and loja.linkedinLink != "" %}
+                    <div class="col text-center">
+
+                        <a class="btn btn-floating m-1" href="{{ loja.linkedinLink }}"
+                           role="button"
+                           target="_blank">
+                            <i class="fa-brands fa-linkedin"></i>
+
+                        </a>
+                    </div>
+                {% endif %}
+                {% if loja.twitterLink != null and loja.twitterLink != "None" and loja.twitterLink != "" %}
+                    <div class="col text-center">
+
+                        <a class="btn btn-floating m-1" href="{{ loja.twitterLink }}"
+                           role="button"
+                           target="_blank">
+                            <i class="fa-brands fa-twitter"></i>
+
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if loja.websiteLink != null and loja.websiteLink != "None" and loja.websiteLink != "" %}
+                    <div class="col text-center">
+
+                        <a class="btn btn-floating m-1" href="{{ loja.websiteLink }}" role="button"
+                           target="_blank">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            website
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

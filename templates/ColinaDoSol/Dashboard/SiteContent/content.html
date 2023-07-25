@@ -1,0 +1,89 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+    <div class="row storesPage">
+        <div class="col">
+            <div class="row">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-desktop"></i> Conteúdos
+                    </h3>
+                </div>
+                <div class="col top_btns_lojas">
+                    <a href="{% url 'ColinaDoSol:edit_content' %}" class="btn btn-outline-success">
+                        <i class="fa-solid fa-pen-to-square form-input-icon"></i> Editar
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Logo</h5>
+                    {% if content.logo %}
+                        <img src="{{ content.logo.url }}" alt="" class="img-fluid logo-image" style="max-width: 200px">
+                    {% else %}
+                        <img src="{% static 'ColinaDoSol/img/LogoCoresH.png' %}" alt="" class="img-fluid logo-image"
+                             style="max-width: 200px">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h5>Descrição</h5>
+                    {% if content.descricao %}
+                        <p>{{ content.description }}</p>
+                    {% else %}
+                        <p>Galeria de lojas localizada em Alfornelos, no concelho da
+                            Amadora, construído em 1992. Tem 61 lojas e parque de estacionamento.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5>Link Facebook</h5>
+                    {% if content.facebookLink %}
+                        <p>{{ content.facebookLink }}</p>
+                    {% else %}
+                        <p>https://www.facebook.com/CCColinadoSol</p>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6">
+                    <h5>Link Instagram</h5>
+                    {% if content.instagramLink %}
+                        <p>{{ content.instagramLink }}</p>
+                    {% else %}
+                        <p>https://instagram.com/centrocomercial_colinadosol?igshid=YmMyMTA2M2Y=</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-images"></i> Imagens do Slider
+                    </h3>
+                </div>
+                <div class="col top_btns_lojas">
+                    <a href="{% url 'ColinaDoSol:sliderImagesList' %}" class="btn btn-outline-success">
+                        <i class="fa-solid fa-pen-to-square form-input-icon"></i> Editar
+                    </a>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row flex-nowrap overflow-auto">
+                    {% for imagem in imagens %}
+                        <div class="col-md-4">
+                            <img src="{{ imagem.imagem.url }}" class="card-img-top p-2"
+                                 alt="{{ imagem.ordem }}" style="height: 300px; object-fit: contain">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

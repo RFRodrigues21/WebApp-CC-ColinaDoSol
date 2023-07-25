@@ -1,0 +1,62 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="col">
+
+        <div class="row  bg-white ">
+            <div>
+                <a href="{% url 'ColinaDoSol:dboard_lojas' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-shop"></i> Editar Produto
+                </h3>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 18px">
+
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success" name=""><i
+                        class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"><i class="fa-solid fa-trash form-input-icon"></i>Eliminar
+                </button>
+            </form>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Produto</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Quer proceder com a eliminação do produto "{{ product.name }}"?
+                        <p>(Não será possivel desfazer esta operação)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                        <button type="button" class="btn btn-danger"
+                                onclick="location.href='{% url 'ColinaDoSol:dboard_delete_produto' product.id %}'">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

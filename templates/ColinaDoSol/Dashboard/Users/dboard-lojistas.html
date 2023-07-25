@@ -1,0 +1,55 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="row storesPage">
+        <div class="col storeCol sideSpliter">
+            <div class="row">
+                <div class="col colTitle">
+                    <h3>
+                        <i class="fa-solid fa-people-group"></i> Lojistas
+                    </h3>
+                </div>
+                <div class="col top_btns_lojas">
+                    <button type="button" class="btn btn-success pull-right"
+                            onclick="location.href='{% url 'ColinaDoSol:dboard_novo_user' %}'">
+                        <i class="fa-solid fa-plus "></i>Adicionar
+                    </button>
+                    <!-- <button type="button" class="btn btn-warning pull-right"><i class="fa-solid fa-print"></i>Imprimir</button>
+                    -->
+                </div>
+            </div>
+
+            <div class="storeUL">
+                {% include 'ColinaDoSol/Dashboard/DashboardElements/lojistaListItem.html' %}
+            </div>
+
+        </div>
+        <div class="col storeCol">
+            <div class="row">
+                <div class="col-8 colTitle">
+                    <h3>
+                        <i class="fa-solid fa-shield"></i>Administradores
+                    </h3>
+                </div>
+                <div class="col-4 top_btns_lojas">
+                    <button type="button" class="btn btn-success pull-right"
+                            onclick="location.href='{% url 'ColinaDoSol:dboard_novo_user' %}'">
+                        <i class="fa-solid fa-plus "></i>Adicionar
+                    </button>
+                    <!-- <button type="button" class="btn btn-warning pull-right"><i class="fa-solid fa-print"></i>Imprimir</button>
+                    -->
+                </div>
+            </div>
+
+            <div class="storeUL">
+                {% include 'ColinaDoSol/Dashboard/DashboardElements/adminListItem.html' %}
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}

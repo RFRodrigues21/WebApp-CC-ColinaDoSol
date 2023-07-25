@@ -1,0 +1,151 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% load bootstrap5 %}
+{% load custom_filters %}
+{% bootstrap_javascript %}
+{% block content %}
+    <div class="col">
+        <div class="row bg-white ">
+            <div>
+                <a href="{% url 'ColinaDoSol:dboard_lojas' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-shop"></i> Editar Loja nº {{ store.store_num }}
+                </h3>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 18px">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col sideSpliter">
+                        <img src="{{ store_form.image.value.url }}" alt="" class="prod-size storeImgEdit mx-auto my-5">
+                        {% if request.user.role == "ADMIN" or request.user.is_superuser %}
+                            {% bootstrap_field store_form.store_num %}
+                        {% else %}
+                            {{ store_form.store_num|add_css_class:"d-none" }}
+                        {% endif %}
+                        {% bootstrap_field store_form.image %}
+                        {% bootstrap_field store_form.brand %}
+                        {% if request.user.role == "ADMIN" or request.user.is_superuser %}
+                            {% bootstrap_field store_form.user %}
+                        {% else %}
+                            {{ store_form.user|add_css_class:"d-none" }}
+                        {% endif %}
+                        {% bootstrap_field store_form.business %}
+                        {% bootstrap_field store_form.phoneNum %}
+                        {% bootstrap_field store_form.email %}
+                        {% bootstrap_field store_form.description %}
+                        <button type="submit" class="btn btn-success" name=""><i
+                                class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                        </button>
+
+                        {% if request.user.role == "ADMIN" or request.user.is_superuser %}
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                               style="color: white !important">
+                                <i class="fa-solid fa-trash form-input-icon"></i> Eliminar
+                            </a>
+                        {% endif %}
+
+                    </div>
+                    <div class="col mb-5">
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                            aria-controls="panelsStayOpen-collapseOne">
+                                        <i class="fa-solid fa-clock form-input-icon"></i>
+                                        Horário
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                                     aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                        <h4>Horário</h4>
+                                        <div class="mb-3 d-flex">
+                                            <button type="button" class="btn btn-success" onclick="equalValues()"
+                                                    id="button1" style="margin: auto;"><i
+                                                    class="fa-solid fa-arrow-down form-input-icon"></i>Igualar
+                                            </button>
+                                        </div>
+                                        {% for form in operating_hours_forms %}
+                                            <h3>{{ form.prefix }}</h3>
+                                            {% bootstrap_field form.weekday %}
+                                            <div class="row">
+                                                <div class="col">
+                                                    {% bootstrap_field form.opening_time layout='horizontal' %}
+                                                </div>
+                                                <div class="col">{% bootstrap_field form.closing_time layout='horizontal' %}</div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{% bootstrap_field form.lunch_start_time layout='horizontal' %}</div>
+                                                <div class="col">{% bootstrap_field form.lunch_end_time layout='horizontal' %}</div>
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                            aria-controls="panelsStayOpen-collapseTwo">
+                                        <i class="fa-solid fa-user-group form-input-icon"></i>
+                                        Redes Sociais
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                     aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body">
+
+                                        <h4>Redes Sociais</h4>
+                                        {% bootstrap_field store_form.facebookLink %}
+                                        {% bootstrap_field store_form.instagramLink %}
+                                        {% bootstrap_field store_form.linkedinLink %}
+                                        {% bootstrap_field store_form.twitterLink %}
+                                        {% bootstrap_field store_form.websiteLink %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Loja</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        A operação não pode ser anulada
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger"
+                                onclick="location.href='{% url 'ColinaDoSol:dboard_delete_loja' store.id %}'">Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

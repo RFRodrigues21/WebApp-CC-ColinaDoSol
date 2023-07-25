@@ -1,0 +1,272 @@
+{% extends "ColinaDoSol/base.html" %}
+{% load static %}
+
+
+{% block icon %}
+    <a class="" href="{% url "ColinaDoSol:index" %}">
+        {% if content.logo %}
+            <img src="{{ content.logo.url }}" alt="logoHorizontal" width="" class="logoSize">
+        {% else %}
+            <img src="{% static 'ColinaDoSol/img/LogoCoresH.png' %}" alt="logoHorizontal" class="logoSize">
+        {% endif %}
+    </a>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div id="carouselExample" class="carousel slide" data-bs-theme="dark">
+            <div class="carousel-inner">
+
+                {% if images %}
+                    {% for image in images %}
+                        <div class="carousel-item {% if image.ordem == 0 %}active{% endif %}">
+                            <img src="{{ image.imagem.url }}" class="d-block w-100"
+                                 style="object-fit: contain;" alt="...">
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <section class="storesSection bg-light" id="news-section">
+        <div class="text-center pt-5">
+            <h1>Esteja a par das novidades!</h1>
+        </div>
+
+        <div class="row mt-4">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if post.media_type == "VIDEO" %}
+                            <video class="card-img-top" controls>
+                                <source src="{{ post.media_url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <img src="{{ post.media_url }}" class="card-img-top" alt="Instagram Post">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text">{{ post.caption }}</p>
+                        </div>
+                        <div class="card-footer text-body-secondary d-flex justify-content-between">
+                            {{ post.formatted_date }}
+
+                            <a href="{{ post.permalink }}" class="btn btn-success" target="_blank">Ver Publicação</a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% comment %}<div class="row mt-4">
+            {% for post in postsFb %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if post.type == "VIDEO" %}
+                            <video class="card-img-top" controls>
+                                <source src="{{ post.full_picture }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <img src="{{ post.full_picture }}" class="card-img-top" alt="Instagram Post">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text">{{ post.message }}</p>
+                        </div>
+                        <div class="card-footer text-body-secondary d-flex justify-content-between">
+                            {{ post.formatted_date }}
+
+                            <a href="{{ post.link }}" class="btn btn-success" target="_blank">Ver Publicação</a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>{% endcomment %}
+    </section>
+
+    <div class="text-center pt-5">
+        <h1>As nossas lojas!</h1>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center pb-5">
+        <div id="mapScene" style="height: 70vh; width: 97vw;"></div>
+    </div>
+
+
+
+    <section class="storesSection bg-light" id="lojas-section">
+        <!--<div class="text-center ">
+                <h1>As nossas lojas!</h1>
+            </div>-->
+        <div class="row ">
+            <!-- LOJAS -->
+            {% for loja in lojasList %}
+                <div class="col my-5">
+                    <div class="card mx-auto h-100" style="width: 18rem;">
+                        <div class="card-img-container">
+                            <img src="{{ loja.image.url }}" class="card-img-top" alt="{{ loja.brand }}"
+                                 style="border-radius: 0">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ loja.brand }}</h5>
+                            <p class="card-text text-justify">{{ loja.business }}</p>
+                        </div>
+                        <div class="row card_footer">
+                            <div class="row">
+                                {% if loja.facebookLink != null and loja.facebookLink != "None" and loja.facebookLink != "" %}
+                                    <div class="col text-center">
+                                        <a class="btn btn-floating m-1" href="{{ loja.facebookLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-facebook"></i>
+                                        </a>
+                                    </div>
+
+                                {% endif %}
+                                {% if loja.instagramLink != null and loja.instagramLink != "None" and loja.instagramLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.instagramLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-instagram"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if loja.linkedinLink != null and loja.linkedinLink != "None" and loja.linkedinLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.linkedinLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-linkedin"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if loja.twitterLink != null and loja.twitterLink != "None" and loja.twitterLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="{{ loja.twitterLink }}" role="button"
+                                           target="_blank">
+                                            <i class="fa-brands fa-twitter"></i>
+
+                                        </a>
+                                    </div>
+                                {% endif %}
+
+                                {% if loja.websiteLink != null and loja.websiteLink != "None" and loja.websiteLink != "" %}
+                                    <div class="col text-center">
+
+                                        <a class="btn btn-floating m-1" href="https://{{ loja.websiteLink }}"
+                                           role="button"
+                                           target="_blank">
+                                            <i class="fa fa-globe"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn_moreinfo pb-2" data-bs-toggle="modal"
+                                        data-bs-target="#id{{ loja.store_num }}">
+                                    Mais informações
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% include 'ColinaDoSol/storeModal.html' %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <script type="module" src="{% static 'ColinaDoSol/js/three.js/main.js' %}"></script>
+
+
+
+
+
+    <div class="contactSection" id="contactos-section">
+        <div class="row py-3">
+            <div class="text-center pt-5">
+                <h1>Contacte-nos</h1>
+                <p>Preencha os campos abaixo e coloque as suas questões/sugestões.</p>
+                <p> Responderemos o
+                    mais breve possível.</p>
+            </div>
+            <div class="col formContactos">
+                <form action="#" method="POST" class="formControlClass" id="formControlId">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <!-- Submit button -->
+                    <button type="submit" class="formContactosBtn btn btn-primary btn-block mb-4 ">Enviar</button>
+                </form>
+            </div>
+            <div class="col mapContactos d-flex justify-content-center">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3110.9740165723824!2d-9.208976048268925!3d38.764299962282024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecd3c04e825bf%3A0x332e956b3250a895!2sCentro%20Comercial%20da%20Colina%20do%20Sol!5e0!3m2!1spt-PT!2spt!4v1675135775549!5m2!1spt-PT!2spt"
+                        class="gMap" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block descricao %}
+
+    {% if content.description %}
+        <p>{{ content.description }}</p>
+    {% else %}
+        <p>Galeria de lojas localizada em Alfornelos, no concelho da
+            Amadora, construído em 1992. Tem 61 lojas e parque de estacionamento.</p>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block redesSociais %}
+
+    {% if content.facebookLink %}
+        <a class="btn btn-outline-light btn-floating m-1" href="{{ content.facebookLink }}"
+           role="button" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+        </a>
+    {% else %}
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/CCColinadoSol"
+           role="button" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+        </a>
+    {% endif %}
+
+    {% if content.instagramLink %}
+        <a class="btn btn-outline-light btn-floating m-1"
+           href="{{ content.instagramLink }}" role="button"
+           target="_blank">
+            <i class="fab fa-instagram"></i>
+            Instagram
+        </a>
+    {% else %}
+        <a class="btn btn-outline-light btn-floating m-1"
+           href="https://instagram.com/centrocomercial_colinadosol?igshid=YmMyMTA2M2Y=" role="button"
+           target="_blank">
+            <i class="fab fa-instagram"></i>
+            Instagram
+        </a>
+    {% endif %}
+{% endblock %}

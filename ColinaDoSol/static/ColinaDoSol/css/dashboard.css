@@ -1,0 +1,184 @@
+.backArrow {
+    font-size: 60px;
+    top: 40px;
+    left: 40px;
+    color: black !important;
+}
+
+/*
+.sidebar {
+    min-width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    background-color: #ffb81c;
+}
+
+.sidebar-spacer {
+    padding-left: 16px;
+}
+*/
+
+.navbar-btn {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.navbar-btn:hover {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.navbar-btn-clicked {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.logout-btn {
+    background-color: #d13d3d !important;
+    color: white !important;
+}
+
+.logoDashboard {
+    width: 170px;
+    margin: 0 auto;
+}
+
+.logoDashboard:hover {
+    cursor: pointer;
+}
+
+.topBar {
+    background-color: #eeeeee;
+    padding: 1rem !important;
+    height: 5vh;
+}
+
+.sidebarBtns {
+    padding: 15vh 0;
+}
+
+.sidebarBtns > .row {
+    margin: 0;
+}
+
+.sidebarBtnFirst {
+    border-top-width: 1px !important;
+}
+
+.fixedRowBottom {
+    position: fixed;
+    bottom: 0;
+}
+
+
+.sidebarBtn {
+    height: 10vh;
+    background-color: transparent;
+    border-width: 0;
+    border-bottom-width: 1px;
+    font-size: 25px;
+    text-align: left;
+}
+
+.sidebarBtn:hover {
+    background-color: #ffd47d;
+}
+
+.deactivatedBtn {
+    background-color: rgba(0, 0, 0, 0.32);
+}
+
+.deactivatedBtn:hover {
+    background-color: rgba(0, 0, 0, 0.32) !important;
+}
+
+.dashboard-subpage-header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dboardPages {
+    overflow: hidden;
+}
+
+.sideSpliter {
+    border-right: 1px solid #ccc
+}
+
+.colTitle {
+    height: 5vh;
+}
+
+.storesPage {
+    overflow: hidden;
+}
+
+.storeUL {
+    overflow: hidden;
+    overflow-y: scroll;
+    /*
+    max-height: 72vh;
+    */
+}
+
+.storeLI {
+    margin-top: 5px !important;
+}
+
+.storeImg {
+    width: 200px;
+    margin: 30px;
+}
+
+.storeEditCol {
+    text-align: right;
+}
+
+.storeImgEdit {
+    max-height: 400px;
+    max-width: 400px;
+    display: block;
+}
+
+.pageT {
+    margin-left: 30px;
+}
+
+.dashboardNameBar {
+    padding-bottom: 3rem !important;
+}
+
+.subpage-header {
+    padding-top: 16px;
+    width: 100vw;
+    border-bottom: 1px solid #ccc;
+    z-index: 999;
+}
+
+/*
+.storeFields {
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 68vh;
+}
+ */
+
+.backPageBtn {
+    margin-left: 0.5rem;
+}
+
+.top_btns_lojas {
+    text-align: end;
+    margin-bottom: 1em;
+}
+
+.form-input-icon {
+    padding-right: 16px;
+}
+
+.announcement-details {
+    display: flex;
+    justify-content: space-between;
+}

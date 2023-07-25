@@ -1,0 +1,10 @@
+.topmenu {
+    min-height: 140px;
+    height: 160px;
+}
+
+.logoSize{
+    min-height: 140px !important;
+    height: 160px !important;
+    width: auto;
+}

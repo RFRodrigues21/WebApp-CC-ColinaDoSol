@@ -1,0 +1,22 @@
+.contactSection {
+    background-color: #ffb81c;
+}
+
+.contactSection button {
+    background-color: #00843d;
+    border: #00843d;
+}
+
+
+@media (min-width: 480px) {
+    .formContactos {
+        min-width: 400px;
+    }
+
+    .gMap {
+        width: 100%;
+        min-width: 400px;
+        margin: 0;
+        min-height: 400px;
+    }
+}

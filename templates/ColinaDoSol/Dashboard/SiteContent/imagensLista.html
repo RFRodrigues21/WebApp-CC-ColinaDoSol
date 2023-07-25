@@ -1,0 +1,124 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+
+    <style>
+        .imageList > ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .imageList > ul > li {
+            margin: 0 0 5px;
+            padding: 5px;
+            width: 150px;
+            cursor: move;
+        }
+    </style>
+    </head>
+    <body>
+
+    <div class="col">
+        <div class="row  bg-white ">
+            <div>
+                <a href="{% url 'ColinaDoSol:content' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-desktop"></i> Lista de Imagens
+                </h3>
+                <p> <b>Nota:</b> Arraste as imagens para a posição desejada e assim definir a ordem que estas são apresentadas</p>
+            </div>
+        </div>
+        <div class="row bg-white imageList">
+            <div class="col d-flex justify-content-center align-items-center">
+                <ul id="sortable">
+                    {% for imagem in imagens %}
+                        <li id="{{ imagem.id }}" class="my-2 list-unstyled">
+                            <img src="{{ imagem.imagem.url }}" alt="{{ imagem.ordem }}" style="width: 250px">
+                            <button type="button" class="btn btn-danger"
+                                    onclick="location.href='{% url 'ColinaDoSol:excluir_imagem' imagem.id %}'">
+                                <i class="fa-solid fa-trash form-input-icon"></i>Eliminar
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+        <div class="row bg-white">
+            <div class="col mt-5 d-flex justify-content-center">
+                <button id="btnAtualizar" disabled class="btn btn-success mx-3">
+                    <i class="fa-solid fa-floppy-disk form-input-icon"></i> Atualizar Posições
+                </button>
+                <a href="{% url 'ColinaDoSol:adicionar_imagem' %}" class="btn btn-outline-success mx-3">
+                    <i class="fa-solid fa-plus form-input-icon"></i> Adicionar Imagem
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            // Obter o token CSRF
+            const csrfToken = "{{ csrf_token }}";
+
+            $("#sortable").sortable({
+                axis: 'y',
+                update: function (event, ui) {
+                    $("#btnAtualizar").prop('disabled', false);
+                }
+            });
+
+            $("#btnAtualizar").click(function () {
+                var novaOrdem = [];
+                $("#sortable").find('li').each(function () {
+                    novaOrdem.push($(this).attr('id'));
+                });
+
+                $(this).prop('disabled', true);
+
+                // Adicionar o token CSRF à requisição AJAX
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    }
+                });
+
+                $.ajax({
+                    url: "{% url 'ColinaDoSol:atualizar_ordem' %}",
+                    type: "POST",
+                    data: {ordem: novaOrdem},
+                    success: function (response) {
+                        console.log("Ordem atualizada com sucesso!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro ao atualizar a ordem: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

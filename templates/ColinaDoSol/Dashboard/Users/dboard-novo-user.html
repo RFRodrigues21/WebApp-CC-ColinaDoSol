@@ -1,0 +1,77 @@
+{% extends "ColinaDoSol/Dashboard/dashboard.html" %}
+{% load static %}
+{% block content %}
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <div class="col">
+        <div class="row  bg-white ">
+            <div>
+                <a href="{% url 'ColinaDoSol:dboard_lojistas' %}"><i
+                        class="fa-solid fa-circle-left backArrow mb-5 backPageBtn"></i></a>
+            </div>
+            <div>
+                <h3 class="pageT">
+                    <i class="fa-solid fa-people-group"></i> Novo Utilizador
+                </h3>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 18px">
+            <form action="" method="POST" class="newUserForm" class="newUserFormId" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Primeiro Nome:</label>
+                            <input type="text" Required name="first_name" id="first_name" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Último Nome:</label>
+                            <input type="text" Required name="last_name" id="last_name" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Email:</label>
+                            <input type="email" Required name="email" id="email" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Username:</label>
+                            <input type="text" Required id="username" name="username" class="form-control">
+                        </div>
+
+                        {% comment %}<div class="mb-3">
+                            <label for="password" class="form-label"><i
+                                    class="fa-solid fa-signature form-input-icon"></i>Password:</label>
+                            <input type="password" Required name="password" id="password" class="form-control">
+                        </div>{% endcomment %}
+
+                        <div class="mb-3">
+                            <label for="role" class="form-label"><i
+                                    class="fa-solid fa-briefcase form-input-icon"></i>Role:</label>
+                            <select name="role" id="role" class="form-select">
+                                <option value="LOJISTA">Lojista</option>
+                                <option value="ADMIN">Administrador</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="guardar" class="btn btn-success" name=""><i
+                                class="fa-solid fa-floppy-disk form-input-icon"></i>Guardar
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'ColinaDoSol/js/sendCredentials.js' %}"></script>
+
+
+{% endblock content %}

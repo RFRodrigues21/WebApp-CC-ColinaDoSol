@@ -1,0 +1,21 @@
+{% for anuncio in anuncios %}
+    <div class="card mb-3 m-auto">
+        <div class="d-flex justify-content-between card-header">
+                <h5 class="">{{ anuncio.title }}</h5>
+            {% if request.user.role == "ADMIN" or request.user.is_superuser %}
+                <a href="{% url 'ColinaDoSol:dboard_editar_anuncio' anuncio.id %}"
+                   class="btn btn-outline-success"><i
+                        class="fa-solid fa-pen-to-square form-input-icon"></i>Editar</a>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ anuncio.text|safe }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="announcement-details">
+                <p>Por: {{ anuncio.user }}</p>
+                <p>{{ anuncio.creation_date }}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
