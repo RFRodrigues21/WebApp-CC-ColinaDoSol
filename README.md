@@ -61,5 +61,5 @@ Development of the website and management platform for the Colina do Sol shoppin
 
   Step2: Create first user
   
-   Login in with the superuser clicking in "ccColinaDoSol" on the footer of the page and create your first administrator.
+   Login in with the superuser clicking in "ccColinaDoSol" or "/login" on the footer of the page and create your first administrator.
   
